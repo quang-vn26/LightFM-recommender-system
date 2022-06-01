@@ -1,8 +1,19 @@
 {% extends 'base.html' %}
 
+{% block header %}
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+<link rel="stylesheet" type="text/css"
+    href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript"
+    src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.15/dataRender/datetime.js"></script>
+{%endblock%}
+
 {% block bodyblock %}
 
-<div class="container-fluid bg-1 ">
+<div class="container-fluid ">
     <h3 class="margin text-center">Recommender sysytem</h3>
     <br>
     <div class="container">
@@ -10,7 +21,7 @@
             <div class="form-row">
                 <div class="form-inline">
                     <label for="" class="input_pro_id">Professional id:</label>
-                    <input type="number" class="form-control" name="pro_id" id="pro_id" placeholder="Id" value="0" required>
+                    <input type="number" class="form-control" name="pro_id" id="pro_id" placeholder="Id" value="0" required min="0">
                 </div>
                 <div class="form-group">
                     <label for="">Date range</label>
@@ -32,12 +43,33 @@
             <p>ID:{{pro_id}}</p>
         </div>
         <div class="row">
-            <p>Result: {{from_day}}</p>
+            <p>Time Range: {{string_time}}</p>
         </div>
-        <div class="row">
-            <p>Score:</p>
+        <div class="mt-4">
+            <p>Recommendation:</p>
+            <table id="proxies" class="display table nowrap responsive" style="width: 100%">
+                <thead>
+                    <tr>
+                        {% for header in results[0].keys() %}
+                        <th>{{header}}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in results %}
+                    <tr>
+                        {% for index in range(0, len(fieldnames)) %}
+                        <td>{{row[fieldnames[index]]}}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
+    <script type="text/javascript">
+        $('#proxies').DataTable();
+    </script>
     {% endif %}
 </div>
 

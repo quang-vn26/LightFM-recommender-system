@@ -21,6 +21,7 @@ import chuan_bi_data
 import lightfm_data
 import train_model
 import recommender
+import os
 
 # rs_loaded = pickle.load(open("rs.h5","rb"))
 
@@ -91,7 +92,7 @@ cv_data_prep.prepare(
     df_questions,df_answers,
     df_tags,df_tag_questions,df_tag_users,
     df_question_scores)
-
+# df_questions_p.to_csv("demo.csv")
 
 # prepare data for lightfm 
 interactions, weights, \
@@ -118,4 +119,11 @@ lightfm_recommendations = recommender.LightFMRecommendations(
 # let's what our model predict for user id 3
 print("Recommendation for professional: " + str(3))
 from IPython.display import display
-display(lightfm_recommendations.recommend_by_pro_id_general(3)[:8])
+display_csv = lightfm_recommendations.recommend_by_pro_id_general(3)[:8]
+if os.path.exists("display_csv.csv"):
+    os.remove("display_csv.csv")
+else:
+    display_csv.to_csv("display_csv.csv")    
+# create file
+# create_file_csv(display_csv)
+# display(display_csv)
