@@ -1,4 +1,2 @@
 .vscode/
 module/__pycache__/
-data
-*.h5

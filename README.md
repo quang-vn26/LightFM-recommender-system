@@ -45,3 +45,8 @@ load file the CSV to a html
 
 big file in Github
 
+```
+git lfs install
+git lfs track "*.csv"
+git add .gitattributes
+```
