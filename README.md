@@ -22,9 +22,11 @@ work with form:
 from flask import request
 var1 = request.form["datetime"]
 ```
-save to csv file
+save and read to csv file
 ```
 df_questions_p.to_csv("demo.csv")
+df_questions_p = pd.read_csv('df_questions_p.csv')
+
 ```
 
 check the file and delete in python
@@ -49,4 +51,17 @@ big file in Github
 git lfs install
 git lfs track "*.csv"
 git add .gitattributes
+```
+
+using pickle in python
+
+```
+if os.path.exists("weights.pkl"):
+    os.remove("weights.pkl")
+else:
+    with open('weights.pkl','wb') as file:            
+        pickle.dump(weights,file)
+
+model = pickle.load(open("weights.pkl","rb"))
+
 ```
